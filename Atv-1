@@ -1,0 +1,32 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://voclabs/user2951826=guilherme68@academico.ufs.br:emrehliug&855@database-test.cnu4266qsk28.us-east-1.rds.amazonaws.com:5432/database-test'
+db = SQLAlchemy(app)
+
+class Usuario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cpf = db.Column(db.Integer, unique=True, nullable=False)
+    nome = db.Column(db.String(100), nullable=False)
+    data_nascimento = db.Column(db.Date, nullable=False)
+
+# Rota para receber informações de um novo usuário via POST
+@app.route('/usuario', methods=['POST'])
+def criar_usuario():
+    # Implementação da rota...
+    pass
+
+# Rota para retornar os dados de um usuário via GET
+@app.route('/usuario/<int:cpf>', methods=['GET'])
+def obter_usuario(cpf):
+    # Implementação da rota...
+    pass
+
+if __name__ == '__main__':
+    # Inicialize o aplicativo Flask
+    app.run(debug=True)
+
+    # Crie as tabelas dentro do contexto da aplicação Flask
+    with app.app_context():
+        db.create_all()
